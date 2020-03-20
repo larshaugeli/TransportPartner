@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TransportPartner.Models
 {
-    public class ItemViewModel
+    public class Storage
     {
     }
 }

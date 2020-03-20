@@ -1,6 +1,6 @@
 using System;
 
-namespace TransportPartner.Models
+namespace TransportPartner.ViewModels
 {
     public class ErrorViewModel
     {

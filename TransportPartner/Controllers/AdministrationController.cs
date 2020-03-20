@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TransportPartner.Tools;
 
 namespace TransportPartner.Controllers
 {
     public class AdministrationController : Controller
     {
+        private readonly AdministrationManager administrationManager;
+
         // GET: Administration
         public ActionResult Administration()
         {
@@ -30,13 +33,13 @@ namespace TransportPartner.Controllers
         // POST: Administration/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                administrationManager.connect();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Administration));
             }
             catch
             {
@@ -59,7 +62,7 @@ namespace TransportPartner.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Administration));
             }
             catch
             {
@@ -82,7 +85,7 @@ namespace TransportPartner.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Administration));
             }
             catch
             {

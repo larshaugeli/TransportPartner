@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TransportPartner.Models
+namespace TransportPartner.ViewModels
 {
     public class DeliveryViewModel
     {
