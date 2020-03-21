@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using MySql.Data.MySqlClient;
 
 namespace TransportPartner.Tools
 {
-    public class AdministrationManager
+    public class StorageManager
     {
-        public async Task connect()
+        private MySqlConnectionStringBuilder _builder;
+
+        public void Initialize()
         {
-            var builder = new MySqlConnectionStringBuilder
+            _builder = new MySqlConnectionStringBuilder
             {
                 Server = "transportpartner.mysql.database.azure.com",
                 Database = "transportpartner",
@@ -18,8 +21,11 @@ namespace TransportPartner.Tools
                 Password = "Mjaupus12345",
                 SslMode = MySqlSslMode.Required,
             };
+        }
 
-            await using var conn = new MySqlConnection(builder.ConnectionString);
+        public async Task Create() {
+            Initialize();
+            var conn = new MySqlConnection(_builder.ToString());
             Console.WriteLine("Opening connection");
             await conn.OpenAsync();
 
