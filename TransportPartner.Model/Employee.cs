@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace TransportPartner.Models
 {
-    public class Employee
+    public class Employee : Person
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public int EmployeeId { get; set; }
     }
 }

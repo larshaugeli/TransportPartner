@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TransportPartner.Data;
 using TransportPartner.Models;
-using TransportPartner.ViewModels;
 
 namespace TransportPartner.Controllers
 {
@@ -19,33 +20,9 @@ namespace TransportPartner.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index(string itemsGenre, string searchString)
+        public async Task<IActionResult> Index()
         {
-            // Use LINQ to get list of genres.
-            IQueryable<string> genreQuery = from m in _context.Item
-                                            orderby m.Genre
-                                            select m.Genre;
-
-            var items = from m in _context.Item
-                        select m;
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                items = items.Where(s => s.Name.Contains(searchString));
-            }
-
-            if (!string.IsNullOrEmpty(itemsGenre))
-            {
-                items = items.Where(x => x.Genre == itemsGenre);
-            }
-
-            var itemGenreViewModel = new ItemsViewModel()
-            {
-                Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Items = await items.ToListAsync()
-            };
-
-            return View(itemGenreViewModel);
+            return View(await _context.Items.ToListAsync());
         }
 
         // GET: Items/Details/5
@@ -56,7 +33,7 @@ namespace TransportPartner.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item
+            var item = await _context.Items
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
@@ -69,19 +46,15 @@ namespace TransportPartner.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            return View(new Item()
-            {
-                Name = "Monitor",
-                Genre = "Teknologi",
-                Quantity = 3,
-            }
-                );
+            return View();
         }
 
         // POST: Items/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Genre,Quantity")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Name,Quantity,Genre")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +65,7 @@ namespace TransportPartner.Controllers
             return View(item);
         }
 
-        // GET: Item/Edit/5
+        // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +73,7 @@ namespace TransportPartner.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item.FindAsync(id);
+            var item = await _context.Items.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -108,10 +81,12 @@ namespace TransportPartner.Controllers
             return View(item);
         }
 
-        // POST: Item/Edit/5
+        // POST: Items/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Genre,Quantity")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Quantity,Genre")] Item item)
         {
             if (id != item.Id)
             {
@@ -141,7 +116,7 @@ namespace TransportPartner.Controllers
             return View(item);
         }
 
-        // GET: Item/Delete/5
+        // GET: Items/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,7 +124,7 @@ namespace TransportPartner.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item
+            var item = await _context.Items
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
@@ -159,20 +134,20 @@ namespace TransportPartner.Controllers
             return View(item);
         }
 
-        // POST: Item/Delete/5
+        // POST: Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var item = await _context.Item.FindAsync(id);
-            _context.Item.Remove(item);
+            var item = await _context.Items.FindAsync(id);
+            _context.Items.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ItemExists(int id)
         {
-            return _context.Item.Any(e => e.Id == id);
+            return _context.Items.Any(e => e.Id == id);
         }
     }
 }
