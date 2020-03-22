@@ -14,11 +14,12 @@ namespace TransportPartner.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DeliveryId { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Leveringsdato")] public DateTime DeliveryDate { get; set; }
         [Display(Name = "Adresse")] public string Address { get; set; }
-        [Display(Name = "Bil brukt")] public string CarUsed { get; set; }
+        [Display(Name = "Firmabil")] public string CarUsed { get; set; }
         [Display(Name = "Levert")] public bool Delivered { get; set; }
         [Display(Name = "Varer")] public string Item { get; set; }
-        [Display(Name = "Ansatt")] public string Employee { get; set; }
+        [Display(Name = "Sjåfør")] public string Employee { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace TransportPartner.Data
         {
             modelBuilder.Entity<Item>().ToTable("Item");
             modelBuilder.Entity<Delivery>().ToTable("Delivery");
-            modelBuilder.Entity<Car>().ToTable("Cars");
+            modelBuilder.Entity<Car>().ToTable("Car");
             modelBuilder.Entity<Employee>().ToTable("Employee");
         }
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TransportPartner.Data;
 using TransportPartner.Models;
+using TransportPartner.ViewModels;
 
 namespace TransportPartner.Controllers
 {
@@ -46,6 +47,9 @@ namespace TransportPartner.Controllers
         // GET: Deliveries/Create
         public IActionResult Create()
         {
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "CarModel", "Manufacturer");
+            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name");
+            ViewData["Employee"] = new SelectList(_context.Employees, "FirstName", "LastName");
             return View();
         }
 
@@ -62,6 +66,9 @@ namespace TransportPartner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "CarModel", delivery.CarUsed);
+            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name", delivery.Item);
+            ViewData["Employee"] = new SelectList(_context.Employees, "FirstName", "LastName", delivery.Employee);
             return View(delivery);
         }
 
