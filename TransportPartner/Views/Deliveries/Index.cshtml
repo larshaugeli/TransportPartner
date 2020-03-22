@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TransportPartner.Models.Delivery>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Leveringer</h1>
+
+<p>
+    <a asp-action="Create">Opprett ny levering</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarUsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivered)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.CarUsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.Item)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => item.Delivered)
+            </th>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DeliveryId">Endre</a> |
+                <a asp-action="Details" asp-route-id="@item.DeliveryId">Detaljer</a> |
+                <a asp-action="Delete" asp-route-id="@item.DeliveryId">Slett</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

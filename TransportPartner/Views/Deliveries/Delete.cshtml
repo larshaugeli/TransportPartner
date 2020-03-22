@@ -1,0 +1,57 @@
+﻿@model TransportPartner.Models.Delivery
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Slett levering</h1>
+
+<h3>Er du sikker på at du vil slette denne leveringen?</h3>
+<div>
+    <h4>Delivery</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarUsed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarUsed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Item)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Delivered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Delivered)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DeliveryId" />
+        <input type="submit" value="Slett" class="btn btn-danger" /> |
+        <a asp-action="Index">Tilbake til Leveringer</a>
+    </form>
+</div>

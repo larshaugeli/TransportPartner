@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TransportPartner.Models.Car>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Firmabiler</h1>
+
+<p>
+    <a asp-action="Create">Opprett ny firmabil</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RegNr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <th>
+                @Html.DisplayFor(model => item.RegNr)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RegNr">Endre</a> |
+                <a asp-action="Details" asp-route-id="@item.RegNr">Detaljer</a> |
+                <a asp-action="Delete" asp-route-id="@item.RegNr">Slett</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

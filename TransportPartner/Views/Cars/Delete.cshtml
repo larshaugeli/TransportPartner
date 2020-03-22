@@ -1,0 +1,39 @@
+﻿@model TransportPartner.Models.Car
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Slett firmabil</h1>
+
+<h3>Er du sikker på at du vil slette denne firmabilen?</h3>
+<div>
+    <h4>Car</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegNr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegNr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CarModel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CarModel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Manufacturer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Manufacturer)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RegNr" />
+        <input type="submit" value="Slett" class="btn btn-danger" /> |
+        <a asp-action="Index">Tilbake til Firmabiler</a>
+    </form>
+</div>
