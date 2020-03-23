@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Linq;
 using TransportPartner.Models;
 
 namespace TransportPartner.Data
@@ -24,22 +18,51 @@ namespace TransportPartner.Data
             context.Items.AddRange(
                 new Item
                 {
-                    Name = "Tastatur",
+                    Name = "iPad Air (2019) 64 GB WiFi",
+                    Developer = "Apple",
                     Genre = "Teknologi",
-                    Price = 499
+                    Price = 6190
                 },
-
                 new Item
                 {
-                    Name = "Støvsuger",
+                    Name = "Acer Aspire 3 15,6\" bærbar PC",
+                    Developer = "Acer",
                     Genre = "Teknologi",
-                    Price = 1299
+                    Price = 7495
                 },
-
                 new Item
                 {
-                    Name = "Stol",
+                    Name = "Nikon Aculon 10x50 kikkert",
+                    Developer = "Nikon",
+                    Genre = "Fritid",
+                    Price = 1295
+                },
+                new Item
+                {
+                    Name = "Klassisk togbane bondegård",
+                    Developer = "Brio",
+                    Genre = "Barneleker",
+                    Price = 399
+                },
+                new Item
+                {
+                    Name = "Patchouli Lime duftlystol",
+                    Developer = "Patchouli",
                     Genre = "Interiør",
+                    Price = 129
+                },
+                new Item
+                {
+                    Name = "Corduroy gryteklut",
+                    Developer = "Corduroy",
+                    Genre = "Kjøkken",
+                    Price = 79
+                },
+                new Item
+                {
+                    Name = "Speedcross 4 GTX terrengløpesko herre",
+                    Developer = "Salomon",
+                    Genre = "Sport",
                     Price = 999
                 }
             );
@@ -48,7 +71,7 @@ namespace TransportPartner.Data
             context.Cars.AddRange(
                   new Car()
                   {
-                      RegNr = "EB12843",
+                      RegNr = "EL12843",
                       CarModel = "Model X",
                       Manufacturer = "Tesla"
                   },
@@ -63,6 +86,12 @@ namespace TransportPartner.Data
                       RegNr = "BA56312",
                       CarModel = "Kubistar",
                       Manufacturer = "Nissan"
+                  },
+                  new Car()
+                  {
+                      RegNr = "AD28845",
+                      CarModel = "Combo",
+                      Manufacturer = "Opel"
                   }
             );
             context.SaveChanges();
@@ -77,6 +106,16 @@ namespace TransportPartner.Data
                {
                     FirstName = "Trond",
                     LastName = "Hansen"
+               },
+               new Employee()
+               {
+                   FirstName = "Marit",
+                   LastName = "Hjelmeseth"
+               },
+               new Employee()
+               {
+                   FirstName = "Bård",
+                   LastName = "Duenes"
                },
                new Employee() 
                {

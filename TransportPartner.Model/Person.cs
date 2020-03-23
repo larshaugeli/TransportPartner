@@ -25,7 +25,7 @@ namespace TransportPartner.Models
         [Display(Name = "Full Name")]
         public string FullName
         {
-            get { return LastName + ", " + FirstName; }
+            get { return FirstName + " " + LastName; }
         }
     }
 }

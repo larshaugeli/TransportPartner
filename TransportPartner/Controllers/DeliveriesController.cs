@@ -16,6 +16,7 @@ namespace TransportPartner.Controllers
     public class DeliveriesController : Controller
     {
         private readonly TransportPartnerContext _context;
+        readonly DeliveryService _service = new DeliveryService();
 
         public DeliveriesController(TransportPartnerContext context)
         {
@@ -187,73 +188,15 @@ namespace TransportPartner.Controllers
             return _context.Deliveries.Any(e => e.DeliveryId == id);
         }
 
-        public RedirectToActionResult FillDatabase()
+        public IActionResult FillDatabase()
         {
-            _context.Database.EnsureCreated();
-
-            _context.Deliveries.AddRange(
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                },
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                },
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                },
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                },
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                },
-                new Delivery
-                {
-                    DeliveryDate = new DateTime(2020, 02, 20),
-                    Address = "Stevneveien 12",
-                    Postcode = 1719,
-                    CarUsed = "EB20340",
-                    Delivered = false,
-                    Employee = "Kari Jensen",
-                });
-            _context.SaveChanges();
-
+            _service.FillDatabase(_context);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult EmptyDatabase()
         {
-            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Delivery]");
+            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE [Delivery]");
             return RedirectToAction(nameof(Index));
         }
     }

@@ -9,8 +9,10 @@ namespace TransportPartner.Models
         [StringLength(7, MinimumLength = 2)]
         [Display(Name = "Registreringsnummer")]
         public string RegNr { get; set; }
+
         [Display(Name = "Model")]
         public string CarModel { get; set; }
+
         [Display(Name = "Bilmerke")]
         public string Manufacturer { get; set; }
 

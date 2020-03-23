@@ -14,12 +14,18 @@ namespace TransportPartner.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Vare")]
+        [Display(Name = "Modellnavn")]
         public string Name { get; set; }
+
+        [Display(Name = "Produsent")]
+        public string Developer { get; set; }
+
         [Display(Name = "Kategori")]
         public string Genre { get; set; }
+
         [Display(Name = "Pris (per enhet)")]
         public int Price { get; set; }
+
         public ICollection<Delivery> Deliveries { get; set; }
     }
 }

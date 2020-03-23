@@ -54,7 +54,7 @@ namespace TransportPartner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Quantity,Genre,Price")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Name,Developer,Genre,Price")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TransportPartner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Quantity,Genre,Price")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Developer,Genre,Price")] Item item)
         {
             if (id != item.Id)
             {
