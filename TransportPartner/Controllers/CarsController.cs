@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace TransportPartner.Controllers
         }
 
         // GET: Cars/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -34,7 +35,7 @@ namespace TransportPartner.Controllers
             }
 
             var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.CarId == id);
+                .FirstOrDefaultAsync(m => m.RegNr == id);
             if (car == null)
             {
                 return NotFound();
@@ -66,7 +67,7 @@ namespace TransportPartner.Controllers
         }
 
         // GET: Cars/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -86,9 +87,9 @@ namespace TransportPartner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RegNr,CarModel,Manufacturer")] Car car)
+        public async Task<IActionResult> Edit(string id, [Bind("RegNr,CarModel,Manufacturer")] Car car)
         {
-            if (id != car.CarId)
+            if (id != car.RegNr)
             {
                 return NotFound();
             }
@@ -102,7 +103,7 @@ namespace TransportPartner.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarExists(car.CarId))
+                    if (!CarExists(car.RegNr))
                     {
                         return NotFound();
                     }
@@ -117,7 +118,7 @@ namespace TransportPartner.Controllers
         }
 
         // GET: Cars/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -125,7 +126,7 @@ namespace TransportPartner.Controllers
             }
 
             var car = await _context.Cars
-                .FirstOrDefaultAsync(m => m.CarId == id);
+                .FirstOrDefaultAsync(m => m.RegNr == id);
             if (car == null)
             {
                 return NotFound();
@@ -137,7 +138,7 @@ namespace TransportPartner.Controllers
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var car = await _context.Cars.FindAsync(id);
             _context.Cars.Remove(car);
@@ -145,9 +146,8 @@ namespace TransportPartner.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CarExists(int id)
-        {
-            return _context.Cars.Any(e => e.CarId == id);
+        private bool CarExists(string id) { 
+            return _context.Cars.Any(e => e.RegNr == id);
         }
     }
 }

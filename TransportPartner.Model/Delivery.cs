@@ -17,6 +17,7 @@ namespace TransportPartner.Models
         [DataType(DataType.Date)]
         [Display(Name = "Leveringsdato")] public DateTime DeliveryDate { get; set; }
         [Display(Name = "Adresse")] public string Address { get; set; }
+        [Display(Name = "Postkode")] public int Postcode { get; set; }
         [Display(Name = "Firmabil")] public string CarUsed { get; set; }
         [Display(Name = "Levert")] public bool Delivered { get; set; }
         [Display(Name = "Varer")] public string Item { get; set; }

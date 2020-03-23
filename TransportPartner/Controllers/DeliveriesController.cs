@@ -47,9 +47,9 @@ namespace TransportPartner.Controllers
         // GET: Deliveries/Create
         public IActionResult Create()
         {
-            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "CarModel", "Manufacturer");
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
             ViewData["Item"] = new SelectList(_context.Items, "Name", "Name");
-            ViewData["Employee"] = new SelectList(_context.Employees, "FirstName", "LastName");
+            ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace TransportPartner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DeliveryId,DeliveryDate,Address,Delivered,CarUsed,Item,Employee")] Delivery delivery)
+        public async Task<IActionResult> Create([Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -66,9 +66,10 @@ namespace TransportPartner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "CarModel", delivery.CarUsed);
+
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
             ViewData["Item"] = new SelectList(_context.Items, "Name", "Name", delivery.Item);
-            ViewData["Employee"] = new SelectList(_context.Employees, "FirstName", "LastName", delivery.Employee);
+            ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
             return View(delivery);
         }
 
@@ -85,6 +86,10 @@ namespace TransportPartner.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
+            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name");
+            ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
             return View(delivery);
         }
 
@@ -93,7 +98,7 @@ namespace TransportPartner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Delivered,CarUsed,Item,Employee")] Delivery delivery)
+        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
         {
             if (id != delivery.DeliveryId)
             {
@@ -120,6 +125,10 @@ namespace TransportPartner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
+            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name", delivery.Item);
+            ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
             return View(delivery);
         }
 

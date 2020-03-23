@@ -7,5 +7,7 @@ namespace TransportPartner.Models
 {
     public class Storage
     {
+        public Item Item { get; set; }
+        public int Quantity { get; set; }
     }
 }

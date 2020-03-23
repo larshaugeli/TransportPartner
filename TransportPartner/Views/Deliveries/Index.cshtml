@@ -19,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarUsed)
+                @Html.DisplayNameFor(model => model.Postcode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Item)
+                @Html.DisplayNameFor(model => model.CarUsed)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Employee)
@@ -42,18 +42,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postcode)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CarUsed)
-            </th>
-            <th>
-                @Html.DisplayFor(modelItem => item.Item)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Employee)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Delivered)
-            </th>
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DeliveryId">Endre</a> |
                 <a asp-action="Details" asp-route-id="@item.DeliveryId">Detaljer</a> |

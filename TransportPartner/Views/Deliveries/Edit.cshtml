@@ -24,18 +24,29 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Postcode" class="control-label"></label>
+                <input asp-for="Postcode" class="form-control" />
+                <span asp-validation-for="Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CarUsed" class="control-label"></label>
-                <input asp-for="CarUsed" class="form-control" />
+                <select asp-for="CarUsed" class="form-control" asp-items="ViewBag.CarUsed">
+                    <option value="">-- Velg firmabil --</option>
+                </select>
                 <span asp-validation-for="CarUsed" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item" class="control-label"></label>
-                <input asp-for="Item" class="form-control" />
+                <select asp-for="Item" class="form-control" asp-items="ViewBag.Item">
+                    <option value="">-- Velg varer --</option>
+                </select>
                 <span asp-validation-for="Item" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Employee" class="control-label"></label>
-                <input asp-for="Employee" class="form-control" />
+                <select asp-for="Employee" class="form-control" asp-items="ViewBag.Employee">
+                    <option value="">-- Velg sjåfør --</option>
+                </select>
                 <span asp-validation-for="Employee" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

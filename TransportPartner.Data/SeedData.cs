@@ -26,7 +26,6 @@ namespace TransportPartner.Data
                 {
                     Name = "Tastatur",
                     Genre = "Teknologi",
-                    Quantity = 2,
                     Price = 499
                 },
 
@@ -34,7 +33,6 @@ namespace TransportPartner.Data
                 {
                     Name = "Støvsuger",
                     Genre = "Teknologi",
-                    Quantity = 5,
                     Price = 1299
                 },
 
@@ -42,18 +40,7 @@ namespace TransportPartner.Data
                 {
                     Name = "Stol",
                     Genre = "Interiør",
-                    Quantity = 2,
                     Price = 999
-                }
-            );
-            context.SaveChanges();
-
-            context.Deliveries.AddRange(
-                new Delivery()
-                {
-                    Address = "Gamle Kongevei 30",
-                    DeliveryDate = new DateTime(05 / 29 / 2015),
-                    Delivered = false
                 }
             );
             context.SaveChanges();
@@ -64,6 +51,18 @@ namespace TransportPartner.Data
                       RegNr = "EB12843",
                       CarModel = "Model X",
                       Manufacturer = "Tesla"
+                  },
+                  new Car()
+                  {
+                      RegNr = "EL34009",
+                      CarModel = "Leaf",
+                      Manufacturer = "Nissan"
+                  },
+                  new Car()
+                  {
+                      RegNr = "BA56312",
+                      CarModel = "Kubistar",
+                      Manufacturer = "Nissan"
                   }
             );
             context.SaveChanges();
@@ -71,11 +70,19 @@ namespace TransportPartner.Data
             context.Employees.AddRange(
                new Employee()
                {
-                   EmployeeId = 1,
                    FirstName = "Ola",
-                   LastName = "Nordmann"
-               }
-            );
+                   LastName = "Nordmann",
+               },
+               new Employee()
+               {
+                    FirstName = "Trond",
+                    LastName = "Hansen"
+               },
+               new Employee() 
+               {
+                   FirstName = "Kari",
+                   LastName = "Jensen"
+               });
             context.SaveChanges();
         }
     }
