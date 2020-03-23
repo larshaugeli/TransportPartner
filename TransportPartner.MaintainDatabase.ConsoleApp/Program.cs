@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using TransportPartner.Data;
+using TransportPartner.Models;
 
 namespace TransportPartner.MaintainDatabase.ConsoleApp
 {
@@ -6,7 +9,7 @@ namespace TransportPartner.MaintainDatabase.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Maintain database Console App");
         }
     }
 }

@@ -6,6 +6,7 @@ namespace TransportPartner.Models
     public class Car
     {
         [Key]
+        [StringLength(7, MinimumLength = 2)]
         [Display(Name = "Registreringsnummer")]
         public string RegNr { get; set; }
         [Display(Name = "Model")]

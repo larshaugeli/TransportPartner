@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using TransportPartner.Data;
 using TransportPartner.Models;
+using TransportPartner.Services;
 using TransportPartner.ViewModels;
 
 namespace TransportPartner.Controllers
@@ -21,9 +23,32 @@ namespace TransportPartner.Controllers
         }
 
         // GET: Deliveries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Deliveries.ToListAsync());
+            ViewData["RegNrSortParm"] = String.IsNullOrEmpty(sortOrder) ? "regnr_desc" : "regnr";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var deliveries = from d in _context.Deliveries
+                select d;
+            switch (sortOrder)
+            {
+                case "regnr":
+                    deliveries = deliveries.OrderBy(d => d.CarUsed);
+                    break;
+                case "regnr_desc":
+                    deliveries = deliveries.OrderByDescending(d => d.CarUsed);
+                    break;
+                case "Date":
+                    deliveries = deliveries.OrderBy(d => d.DeliveryDate);
+                    break;
+                case "date_desc":
+                    deliveries = deliveries.OrderByDescending(d => d.DeliveryDate);
+                    break;
+                default:
+                    deliveries = deliveries.OrderBy(d => d.DeliveryDate);
+                    break;
+            }
+
+            return View(await deliveries.AsNoTracking().ToListAsync());
         }
 
         // GET: Deliveries/Details/5
@@ -54,8 +79,6 @@ namespace TransportPartner.Controllers
         }
 
         // POST: Deliveries/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
@@ -94,8 +117,6 @@ namespace TransportPartner.Controllers
         }
 
         // POST: Deliveries/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
@@ -164,6 +185,76 @@ namespace TransportPartner.Controllers
         private bool DeliveryExists(int id)
         {
             return _context.Deliveries.Any(e => e.DeliveryId == id);
+        }
+
+        public RedirectToActionResult FillDatabase()
+        {
+            _context.Database.EnsureCreated();
+
+            _context.Deliveries.AddRange(
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                },
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                },
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                },
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                },
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                },
+                new Delivery
+                {
+                    DeliveryDate = new DateTime(2020, 02, 20),
+                    Address = "Stevneveien 12",
+                    Postcode = 1719,
+                    CarUsed = "EB20340",
+                    Delivered = false,
+                    Employee = "Kari Jensen",
+                });
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult EmptyDatabase()
+        {
+            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Delivery]");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
