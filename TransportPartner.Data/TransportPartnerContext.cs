@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 using TransportPartner.Models;
 
 namespace TransportPartner.Data
@@ -13,6 +14,7 @@ namespace TransportPartner.Data
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<ItemAssignment> ItemsAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +22,7 @@ namespace TransportPartner.Data
             modelBuilder.Entity<Delivery>().ToTable("Delivery");
             modelBuilder.Entity<Car>().ToTable("Car");
             modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<ItemAssignment>().HasKey(i => new { i.DeliveryId, i.ItemId }); ;
         }
     }
 }

@@ -9,9 +9,10 @@ using TransportPartner.Models;
 
 namespace TransportPartner.ViewModels
 {
-    public class DeliveryViewModel : PageModel
+    public class AssignedItemData
     {
-        public Delivery Deliveries { get; set; }
-        public List<SelectListItem> CarList { get; set; }
+        public int DeliveryId { get; set; }
+        public string Title { get; set; }
+        public bool Assigned { get; set; }
     }
 }

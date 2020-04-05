@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -61,7 +63,10 @@ namespace TransportPartner.Controllers
             }
 
             var delivery = await _context.Deliveries
-                .FirstOrDefaultAsync(m => m.DeliveryId == id);
+                 .Include(s => s.Items)
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(m => m.DeliveryId == id);
+
             if (delivery == null)
             {
                 return NotFound();
@@ -74,7 +79,7 @@ namespace TransportPartner.Controllers
         public IActionResult Create()
         {
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
-            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name");
+            ViewData["Item"] = new MultiSelectList(_context.Items, "Id", "Name");
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
             return View();
         }
@@ -82,20 +87,51 @@ namespace TransportPartner.Controllers
         // POST: Deliveries/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
+        public async Task<IActionResult> Create([Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Employee,Items")] Delivery delivery, int[] items)
         {
+            if (items != null)
+            {
+                delivery.Items = new List<ItemAssignment>();
+                foreach (var itemId in items)
+                {
+                    Item item = _context.Items.Find(itemId);
+                    Debug.WriteLine("\n\n_--_-__________________________________________________________________________" + item.Name);
+                    var itemToAdd = new ItemAssignment() { ItemId = itemId, DeliveryId = delivery.DeliveryId };
+                    delivery.Items.Add(itemToAdd);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(delivery);
                 await _context.SaveChangesAsync();
+                Debug.WriteLine("\n-----------------------------------------------------------------------------------" + delivery.Items.Count);
                 return RedirectToAction(nameof(Index));
             }
 
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
-            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name", delivery.Item);
+            ViewData["Items"] = new MultiSelectList(_context.Items, "Name", "Name", delivery.Items);
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
+            //PopulateAssignedItemData(delivery);
+
             return View(delivery);
         }
+
+        private void PopulateAssignedItemData(Delivery delivery)
+        {
+            var allItems = _context.Items;
+            var itemsInDeliveries = new HashSet<int>(delivery.Items.Select(i => i.ItemId));
+            var viewModel = new List<ItemAssignment>();
+            foreach (var item in allItems)
+            {
+                viewModel.Add(new ItemAssignment
+                {
+                    ItemId = item.Id
+                });
+            }
+            ViewData["Items"] = viewModel;
+        }
+
 
         // GET: Deliveries/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -106,21 +142,23 @@ namespace TransportPartner.Controllers
             }
 
             var delivery = await _context.Deliveries.FindAsync(id);
+
             if (delivery == null)
             {
                 return NotFound();
             }
 
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
-            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name");
+            ViewData["Items"] = new MultiSelectList(_context.Items, "Name", "Name");
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
+            //PopulateAssignedItemData(delivery);
             return View(delivery);
         }
 
         // POST: Deliveries/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Item,Employee")] Delivery delivery)
+        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Items,Employee")] Delivery delivery)
         {
             if (id != delivery.DeliveryId)
             {
@@ -149,8 +187,9 @@ namespace TransportPartner.Controllers
             }
 
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
-            ViewData["Item"] = new SelectList(_context.Items, "Name", "Name", delivery.Item);
+            ViewData["Itema"] = new MultiSelectList(_context.Items, "Name", "Name", delivery.Items);
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
+            //PopulateAssignedItemData(delivery);
             return View(delivery);
         }
 

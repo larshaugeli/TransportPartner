@@ -34,11 +34,14 @@ namespace TransportPartner.Models
         [Display(Name = "Levert")] 
         public bool Delivered { get; set; }
 
-        [Display(Name = "Varer")] 
-        public string Item { get; set; }
+        //[Display(Name = "Varer")]
+        //public Item Item { get; set; }
 
         [Required]
         [Display(Name = "Sjåfør")] 
         public string Employee { get; set; }
+
+        [Display(Name = "Varer")]
+        public ICollection<ItemAssignment> Items { get; set; }
     }
 }

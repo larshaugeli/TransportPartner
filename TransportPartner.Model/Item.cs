@@ -26,6 +26,6 @@ namespace TransportPartner.Models
         [Display(Name = "Pris (per enhet)")]
         public int Price { get; set; }
 
-        public ICollection<Delivery> Deliveries { get; set; }
+        public ICollection<ItemAssignment> Deliveries { get; set; }
     }
 }
