@@ -22,6 +22,8 @@ namespace TransportPartner.Data
             modelBuilder.Entity<Delivery>().ToTable("Delivery");
             modelBuilder.Entity<Car>().ToTable("Car");
             modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<ItemAssignment>().ToTable("ItemAssignment");
+
             modelBuilder.Entity<ItemAssignment>().HasKey(i => new { i.DeliveryId, i.ItemId }); ;
         }
     }

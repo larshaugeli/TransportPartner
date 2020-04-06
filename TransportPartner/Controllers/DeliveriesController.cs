@@ -94,9 +94,8 @@ namespace TransportPartner.Controllers
                 delivery.Items = new List<ItemAssignment>();
                 foreach (var itemId in items)
                 {
-                    Item item = _context.Items.Find(itemId);
-                    Debug.WriteLine("\n\n_--_-__________________________________________________________________________" + item.Name);
-                    var itemToAdd = new ItemAssignment() { ItemId = itemId, DeliveryId = delivery.DeliveryId };
+                    string itemName = _context.Items.Find(itemId).Name;
+                    var itemToAdd = new ItemAssignment() { ItemId = itemId, ItemName = itemName, DeliveryId = delivery.DeliveryId };
                     delivery.Items.Add(itemToAdd);
                 }
             }
@@ -105,7 +104,6 @@ namespace TransportPartner.Controllers
             {
                 _context.Add(delivery);
                 await _context.SaveChangesAsync();
-                Debug.WriteLine("\n-----------------------------------------------------------------------------------" + delivery.Items.Count);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -149,7 +147,7 @@ namespace TransportPartner.Controllers
             }
 
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
-            ViewData["Items"] = new MultiSelectList(_context.Items, "Name", "Name");
+            ViewData["Item"] = new MultiSelectList(_context.Items, "Id", "Name");
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
             //PopulateAssignedItemData(delivery);
             return View(delivery);
@@ -158,8 +156,20 @@ namespace TransportPartner.Controllers
         // POST: Deliveries/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Items,Employee")] Delivery delivery)
+        public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Items,Employee")] Delivery delivery, int[] items)
         {
+            if (items != null)
+            {
+                delivery.Items = new List<ItemAssignment>();
+                foreach (var itemId in items)
+                {
+                    delivery.Items.Clear();
+                    string itemName = _context.Items.Find(itemId).Name;
+                    var itemToAdd = new ItemAssignment() { ItemId = itemId, ItemName = itemName, DeliveryId = delivery.DeliveryId };
+                    delivery.Items.Add(itemToAdd);
+                }
+            }
+
             if (id != delivery.DeliveryId)
             {
                 return NotFound();
@@ -187,7 +197,7 @@ namespace TransportPartner.Controllers
             }
 
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
-            ViewData["Itema"] = new MultiSelectList(_context.Items, "Name", "Name", delivery.Items);
+            ViewData["Items"] = new MultiSelectList(_context.Items, "Id", "Name", delivery.Items);
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
             //PopulateAssignedItemData(delivery);
             return View(delivery);
