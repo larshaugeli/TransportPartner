@@ -158,17 +158,24 @@ namespace TransportPartner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DeliveryId,DeliveryDate,Address,Postcode,Delivered,CarUsed,Items,Employee")] Delivery delivery, int[] items)
         {
-            if (items != null)
-            {
-                delivery.Items = new List<ItemAssignment>();
-                foreach (var itemId in items)
-                {
-                    delivery.Items.Clear();
-                    string itemName = _context.Items.Find(itemId).Name;
-                    var itemToAdd = new ItemAssignment() { ItemId = itemId, ItemName = itemName, DeliveryId = delivery.DeliveryId };
-                    delivery.Items.Add(itemToAdd);
-                }
-            }
+
+            //var dbProject = await _context.Deliveries
+            //                        .Include(p => p.Items)
+            //                        .FirstAsync(p => p.DeliveryId == delivery.DeliveryId);
+
+            //if (dbProject.Items.Any())
+            //{
+            //    _context.ItemsAssignments.RemoveRange(dbProject.Items);
+            //    await _context.SaveChangesAsync();
+            //}
+
+            //foreach (var del in delivery.Items)
+            //{
+            //    dbProject.Items.Add(new ItemAssignment()
+            //    {
+            //        DeliveryId = del.DeliveryId
+            //    });
+            //}
 
             if (id != delivery.DeliveryId)
             {
@@ -179,6 +186,8 @@ namespace TransportPartner.Controllers
             {
                 try
                 {
+                    Debug.Write("\n Id: " + delivery.DeliveryId + " postkode:" + delivery.Postcode + " itemS:" + delivery.Items.Count());
+                    Debug.WriteLine("___________ Items før lagring: " + delivery.Items.Count());
                     _context.Update(delivery);
                     await _context.SaveChangesAsync();
                 }
@@ -245,7 +254,10 @@ namespace TransportPartner.Controllers
 
         public IActionResult EmptyDatabase()
         {
-            _context.Database.ExecuteSqlRaw("TRUNCATE TABLE [Delivery]");
+            _context.Database.ExecuteSqlRaw("SET FOREIGN_KEY_CHECKS = 0");
+            _context.Database.ExecuteSqlRaw("truncate table [Delivery]");
+            _context.Database.ExecuteSqlRaw("SET FOREIGN_KEY_CHECKS = 1");
+            
             return RedirectToAction(nameof(Index));
         }
     }

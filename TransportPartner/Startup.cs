@@ -28,7 +28,9 @@ namespace TransportPartner
             services.AddControllersWithViews();
 
             services.AddDbContext<TransportPartnerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+
+
 
             Console.WriteLine("_____________________________ connected");
 
