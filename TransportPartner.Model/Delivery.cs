@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace TransportPartner.Models
 {
+    // <summary>
+    // This model contains variables and functions regarding delivieries in the system
+    // <summary>
     public class Delivery
     {
         [Key]
@@ -33,9 +36,6 @@ namespace TransportPartner.Models
 
         [Display(Name = "Levert")] 
         public bool Delivered { get; set; }
-
-        //[Display(Name = "Varer")]
-        //public Item Item { get; set; }
 
         [Required]
         [Display(Name = "Sjåfør")] 

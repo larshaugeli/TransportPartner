@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Items" class="control-label"></label>
-                <select name="items" asp-for="Items" multiple="multiple" class="form-control" asp-items="ViewBag.Item" >
+                <select id="selectItem" name="items" asp-for="Items" multiple="multiple" class="form-control" asp-items="ViewBag.Item" >
                     <option value="">-- Velg varer --</option>
                 </select>
                 <span asp-validation-for="Items" class="text-danger"></span>

@@ -4,6 +4,9 @@ using TransportPartner.Models;
 
 namespace TransportPartner.Data
 {
+    // <summary>
+    // Database context class. Used for creating the tables
+    // <summary>
     public class TransportPartnerContext : DbContext
     {
         public TransportPartnerContext(DbContextOptions<TransportPartnerContext> options) : base(options)

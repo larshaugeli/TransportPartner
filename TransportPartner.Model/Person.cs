@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace TransportPartner.Models
 {
+    // <summary>
+    // This model contains variables and functions regarding persons in the system
+    // <summary>
     public abstract class Person
     {
         public int Id { get; set; }

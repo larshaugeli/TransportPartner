@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TransportPartner.Models
 {
+    // <summary>
+    // This model contains variables and functions regarding cars in the system
+    // <summary>
     public class Car
     {
         [Key]

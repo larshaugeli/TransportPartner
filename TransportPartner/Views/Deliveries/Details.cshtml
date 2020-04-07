@@ -40,14 +40,18 @@
             <table class="table">
                 <tr>
                     <th>Varenavn</th>
+                    <th>Produkt id</th>
                 </tr>
                 @foreach (var item in Model.Items)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.ItemName)
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ProductId)
+                </td>
+            </tr>
                 }
             </table>
         </dd>

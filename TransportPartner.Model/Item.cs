@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace TransportPartner.Models
 {
+    // <summary>
+    // This model contains variables and functions regarding items in the system
+    // <summary>
     public class Item
     {
         [Key]
@@ -17,6 +20,9 @@ namespace TransportPartner.Models
         [Display(Name = "Modellnavn")]
         public string Name { get; set; }
 
+        [Display(Name = "Produkt ID")]
+        public string ProductId { get; set; }
+
         [Display(Name = "Produsent")]
         public string Developer { get; set; }
 
@@ -25,6 +31,12 @@ namespace TransportPartner.Models
 
         [Display(Name = "Pris (per enhet)")]
         public int Price { get; set; }
+
+        [Display(Name = "Varenavn og Produkt ID")]
+        public string NameAndProductId
+        {
+            get { return Name + ", " + ProductId; }
+        }
 
         public ICollection<ItemAssignment> Deliveries { get; set; }
     }

@@ -10,6 +10,7 @@ namespace TransportPartner.MaintainDatabase.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Maintain database Console App");
+            Console.ReadLine();
         }
     }
 }

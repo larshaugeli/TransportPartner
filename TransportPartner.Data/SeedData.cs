@@ -3,6 +3,9 @@ using TransportPartner.Models;
 
 namespace TransportPartner.Data
 {
+    // <summary>
+    // This class initializes the database and fills items, employees and cars
+    // <summary>
     public class SeedData
     {
         public static void Initialize(TransportPartnerContext context)
@@ -19,6 +22,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "iPad Air (2019) 64 GB WiFi",
+                    ProductId = "EXD334DNR56",
                     Developer = "Apple",
                     Genre = "Teknologi",
                     Price = 6190
@@ -26,6 +30,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Acer Aspire 3 15,6\" bærbar PC",
+                    ProductId = "TROS45FVFD",
                     Developer = "Acer",
                     Genre = "Teknologi",
                     Price = 7495
@@ -33,6 +38,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Nikon Aculon 10x50 kikkert",
+                    ProductId = "3DS59IGDJS",
                     Developer = "Nikon",
                     Genre = "Fritid",
                     Price = 1295
@@ -40,6 +46,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Klassisk togbane bondegård",
+                    ProductId = "3XD9TFIT55",
                     Developer = "Brio",
                     Genre = "Barneleker",
                     Price = 399
@@ -47,6 +54,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Patchouli Lime duftlystol",
+                    ProductId = "QAPND54N8ZS",
                     Developer = "Patchouli",
                     Genre = "Interiør",
                     Price = 129
@@ -54,6 +62,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Corduroy gryteklut",
+                    ProductId = "DUUYCDN543",
                     Developer = "Corduroy",
                     Genre = "Kjøkken",
                     Price = 79
@@ -61,6 +70,7 @@ namespace TransportPartner.Data
                 new Item
                 {
                     Name = "Speedcross 4 GTX terrengløpesko herre",
+                    ProductId = "PO352NSIGR",
                     Developer = "Salomon",
                     Genre = "Sport",
                     Price = 999

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TransportPartner.Data;
 using TransportPartner.Models;
 
@@ -10,6 +7,9 @@ namespace TransportPartner.Services
 {
     public class DeliveryService
     {
+        // <summary>
+        // This class contains functions for creating data for the Deliveries table
+        // <summary>
         public void FillDatabase(TransportPartnerContext context)
         {
             context.Database.EnsureCreated();
@@ -23,7 +23,7 @@ namespace TransportPartner.Services
                     CarUsed = "EL12843",
                     Delivered = false,
                     Employee = "Kari Jensen",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 1, ItemName =  context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 1, ItemName = context.Items.Find(2).Name } },
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 1, ItemName =  context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 1, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } },
                 },
                 new Delivery
                 {
@@ -33,7 +33,7 @@ namespace TransportPartner.Services
                     CarUsed = "EL12843",
                     Delivered = false,
                     Employee = "Kari Jensen",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 2, ItemName = context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 2, ItemName = context.Items.Find(2).Name } }
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 2, ItemName = context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 2, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } }
                 },
                 new Delivery
                 {
@@ -43,7 +43,7 @@ namespace TransportPartner.Services
                     CarUsed = "EL12843",
                     Delivered = false,
                     Employee = "Kari Jensen",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 3, ItemName = context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 3, ItemName = context.Items.Find(2).Name } }
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 3, ItemName = context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 3, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } }
                 },
                 new Delivery
                 {
@@ -53,7 +53,7 @@ namespace TransportPartner.Services
                     CarUsed = "AD28845",
                     Delivered = false,
                     Employee = "Bård Duenes",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 4, ItemName = context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 4, ItemName = context.Items.Find(2).Name } }
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 4, ItemName = context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 4, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } }
                 },
                 new Delivery
                 {
@@ -63,7 +63,7 @@ namespace TransportPartner.Services
                     CarUsed = "AD28845",
                     Delivered = false,
                     Employee = "Bård Duenes",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 5, ItemName = context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 5, ItemName = context.Items.Find(2).Name } }
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 5, ItemName = context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 5, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } }
                 },
                 new Delivery
                 {
@@ -73,7 +73,7 @@ namespace TransportPartner.Services
                     CarUsed = "BA56312",
                     Delivered = false,
                     Employee = "Ola Nordmann",
-                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 6, ItemName = context.Items.Find(1).Name }, new ItemAssignment() { ItemId = 2, DeliveryId = 6, ItemName = context.Items.Find(2).Name } }
+                    Items = new List<ItemAssignment>() { new ItemAssignment() { ItemId = 1, DeliveryId = 6, ItemName = context.Items.Find(1).Name, ProductId = context.Items.Find(1).ProductId }, new ItemAssignment() { ItemId = 2, DeliveryId = 6, ItemName = context.Items.Find(2).Name, ProductId = context.Items.Find(2).ProductId } }
                 });
             context.SaveChanges();
         }
