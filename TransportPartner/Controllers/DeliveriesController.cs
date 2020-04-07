@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using TransportPartner.Data;
 using TransportPartner.Models;
 using TransportPartner.Services;
-using TransportPartner.ViewModels;
 
 namespace TransportPartner.Controllers
 {
@@ -33,6 +28,8 @@ namespace TransportPartner.Controllers
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             var deliveries = from d in _context.Deliveries
                 select d;
+
+            // sorting
             switch (sortOrder)
             {
                 case "regnr":
@@ -112,26 +109,9 @@ namespace TransportPartner.Controllers
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
             ViewData["Items"] = new MultiSelectList(_context.Items, "Name", "NameAndProductId", delivery.Items);
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
-            //PopulateAssignedItemData(delivery);
 
             return View(delivery);
         }
-
-        private void PopulateAssignedItemData(Delivery delivery)
-        {
-            var allItems = _context.Items;
-            var itemsInDeliveries = new HashSet<int>(delivery.Items.Select(i => i.ItemId));
-            var viewModel = new List<ItemAssignment>();
-            foreach (var item in allItems)
-            {
-                viewModel.Add(new ItemAssignment
-                {
-                    ItemId = item.Id
-                });
-            }
-            ViewData["Items"] = viewModel;
-        }
-
 
         // GET: Deliveries/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -151,7 +131,6 @@ namespace TransportPartner.Controllers
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar");
             ViewData["Item"] = new MultiSelectList(_context.Items, "Id", "NameAndProductId");
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName");
-            //PopulateAssignedItemData(delivery);
             return View(delivery);
         }
 
@@ -190,7 +169,6 @@ namespace TransportPartner.Controllers
             ViewData["CarUsed"] = new SelectList(_context.Cars, "RegNr", "RegNrAndCar", delivery.CarUsed);
             ViewData["Items"] = new MultiSelectList(_context.Items, "Id", "NameAndProductId", delivery.Items);
             ViewData["Employee"] = new SelectList(_context.Employees, "FullName", "FullName", delivery.Employee);
-            //PopulateAssignedItemData(delivery);
             return View(delivery);
         }
 
